@@ -151,7 +151,7 @@ def print_song_info(stdscr, client):
     stdscr.addstr(num_rows - 2, 2, message )
 
 
-def main(stdscr):
+def ui(stdscr):
     # Connect to MPD server
     client = connect_client()
 
@@ -221,4 +221,4 @@ def main(stdscr):
 
 
 if __name__ == '__main__':
-    curses.wrapper(main)
+    curses.wrapper(ui)
