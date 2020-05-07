@@ -15,6 +15,7 @@ def print_lyric(client, lyric, stdscr):
 
     # Line that will be blank on top and bottom of the screen
     top_bot_offset = 5
+    info_lines = 2
 
     # Sometimes gives error if does just exit
     playing_song_time = float(client.status()['elapsed'])
@@ -69,7 +70,7 @@ def print_lyric(client, lyric, stdscr):
     #         render_end = num_rows - 2*top_bot_offset
 
     # Print all the lyrics verses (no highlight)
-    l = top_bot_offset
+    l = top_bot_offset - info_lines
     for i in range(render_start, render_end):
         stdscr.move(l, 0)
         stdscr.clrtoeol()
@@ -78,10 +79,10 @@ def print_lyric(client, lyric, stdscr):
         l += 1
 
     # Highlight the verse that is being singed
-    stdscr.move(hl_line, 0)
+    stdscr.move(hl_line - info_lines, 0)
     stdscr.clrtoeol()
     line = str(lyric[v].get_verse())
-    stdscr.addstr(hl_line, num_cols//2 - len(line)//2, line, curses.A_BOLD)
+    stdscr.addstr(hl_line - info_lines, num_cols//2 - len(line)//2, line, curses.A_BOLD)
 
     # Clear the top_bot_offset part of the screen to be sure that are blank line
     for i in range(top_bot_offset):
@@ -104,6 +105,18 @@ def print_no_lyrics_message(stdscr):
     message = "Lyrics not Found"
     stdscr.addstr(num_rows // 2 - 1 , num_cols//2 - len(message)//2, message, curses.A_BOLD)
 
+
+def generating_lyrics_message(stdscr):
+    # Get tereminal dimension
+    num_rows, num_cols = stdscr.getmaxyx()
+
+    # Clear the screen
+    for i in range(num_rows):
+        stdscr.move(i, 0)
+        stdscr.clrtoeol()
+
+    message = "Lyrics file found!"
+    stdscr.addstr(num_rows // 2 - 1 , num_cols//2 - len(message)//2, message)
 
 def print_song_info(stdscr, client):
     # Get tereminal dimension
@@ -190,7 +203,14 @@ def ui(stdscr):
                 # Get the lyric if the song playing is new
                 if prev_lyric != lyric_filename:
                     lyric = get_lyric_data(lyrics_folder + lyric_filename)
+
+                    # Inform the user that the lyrics is found
+                    generating_lyrics_message(stdscr)
+                    stdscr.box()
+                    stdscr.refresh()
+
                     lyric.sort()
+
                     prev_lyric = lyric_filename
 
                 # Print the lyric
