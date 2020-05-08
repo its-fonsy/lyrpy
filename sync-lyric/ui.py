@@ -85,11 +85,11 @@ def print_lyric(client, lyric, stdscr):
     stdscr.addstr(hl_line - info_lines, num_cols//2 - len(line)//2, line, curses.A_BOLD)
 
     # Clear the top_bot_offset part of the screen to be sure that are blank line
-    for i in range(top_bot_offset):
+    for i in range(top_bot_offset - info_lines):
         stdscr.move(i, 0)
         stdscr.clrtoeol()
 
-        stdscr.move(num_rows - i - 1, 0)
+        stdscr.move(num_rows - i - 1 - info_lines, 0)
         stdscr.clrtoeol()
 
 
