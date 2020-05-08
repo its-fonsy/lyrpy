@@ -1,12 +1,12 @@
 #!/usr/bin/python
 
+from mpd import MPDClient
 import curses
 import subprocess
 from os import listdir
 from os.path import isfile, join
 
-from gen_lyric import *
-from mpd_fct import *
+from lyric import get_lyric_data, sync_verse
 
 
 def print_lyric(client, lyric, stdscr):
@@ -166,7 +166,10 @@ def print_song_info(stdscr, client):
 
 def ui(stdscr):
     # Connect to MPD server
-    client = connect_client()
+    client = MPDClient()
+    client.timeout = None
+    client.idletimeout = None
+    client.connect("localhost", 6600)
 
     # getch() is blocking by default, with these func. just wait 150ms
     stdscr.nodelay(1)
@@ -238,6 +241,10 @@ def ui(stdscr):
 
             # Refresh the current lyric
             prev_lyric = "Change the lyric bro"
+            lyrics_files = [f for f in listdir(lyrics_folder) if isfile(join(lyrics_folder, f))]
+
+    client.close()
+    client.disconnect()
 
 
 if __name__ == '__main__':
