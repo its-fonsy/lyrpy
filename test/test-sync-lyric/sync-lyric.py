@@ -35,8 +35,8 @@ def loop(stdscr):
     title = client.currentsong()['title']
     prev_lyric = artist + ' - ' + title + '.lrc'
     if prev_lyric in lyrics_files:
-        lyric = get_lyric_data(lyrics_folder + prev_lyric)
-        lyric.sort()
+        song_lyric = get_lyric_data(lyrics_folder + prev_lyric)
+        song_lyric.sort()
 
     while (1):
         key = stdscr.getch()
@@ -67,7 +67,7 @@ def loop(stdscr):
 
                 # Print the lyric
                 try:
-                    ui.print_lyric(client, lyric, stdscr)
+                    ui.print_lyric(client, song_lyric, stdscr)
                 except:
                     pass
                 ui.print_song_info(stdscr, client)
