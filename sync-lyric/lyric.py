@@ -7,7 +7,7 @@ from Verse import Verse
 
 
 def get_lyric_data(lyric_file):
-    lyric = []
+    song_lyric = []
 
     with open(lyric_file, 'r') as lyric_data:
         for line in lyric_data:
@@ -39,29 +39,15 @@ def get_lyric_data(lyric_file):
                     minute, sec = stamp.split(':')
                     minute = int(minute)
                     sec = float(sec)
-                    lyric.append(Verse(minute, sec, verse))
-    return lyric
+                    song_lyric.append(Verse(minute, sec, verse))
+    return song_lyric
 
 
-def sync_verse(time, lyric):
+def sync_verse(time, song_lyric):
 
     # Return the verse that is being singed
-    for v in range(len(lyric) - 1):
-        if v != (len(lyric) - 1) and \
-           (time - lyric[v].get_time()) > 0.0 and \
-           (time - lyric[v+1].get_time()) < 0.0:
-               return lyric[v], v
-
-
-def demo():
-    lyric = get_lyric_data('blink-182 - Happy Days.lrc')
-    lyric.sort()
-
-    verse = sync_verse(104, lyric)
-    print(verse.get_time())
-    print(verse.get_verse())
-
-
-if __name__ == '__main__':
-    demo()
-
+    for v in range(len(song_lyric) - 1):
+        if v != (len(song_lyric) - 1) and \
+           (time - song_lyric[v].get_time()) > 0.0 and \
+           (time - song_lyric[v+1].get_time()) < 0.0:
+               return song_lyric[v], v

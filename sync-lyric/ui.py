@@ -3,7 +3,7 @@
 import curses
 from lyric import sync_verse
 
-def print_lyric(client, lyric, stdscr):
+def print_lyric(client, song_lyric, stdscr):
     # Dimension of the terminal
     num_rows, num_cols = stdscr.getmaxyx()
 
@@ -13,17 +13,17 @@ def print_lyric(client, lyric, stdscr):
 
     # Sometimes gives error if does just exit
     playing_song_time = float(client.status()['elapsed'])
-    hl_verse, v = sync_verse(playing_song_time, lyric)
+    hl_verse, v = sync_verse(playing_song_time, song_lyric)
 
     # Define the index of the verses that will be displayed
     # Highlight the center line
-    if len(lyric) < (num_rows - offset):
+    if len(song_lyric) < (num_rows - offset):
         # If the lyrics can be contained in all the window then
         # adjust the offset to center all the text vertically
-        offset = (num_rows - len(lyric)) // 2
+        offset = (num_rows - len(song_lyric)) // 2
         hl_line = v + offset
         render_start = 0
-        render_end = len(lyric) - 1
+        render_end = len(song_lyric) - 1
     else:
         mid_line = num_rows // 2
         if v > (mid_line - offset):
@@ -31,8 +31,8 @@ def print_lyric(client, lyric, stdscr):
             render_start = v - mid_line + offset
             render_end = v + mid_line - offset
 
-            if render_end > (len(lyric) - 1):
-                render_end = len(lyric) - 1
+            if render_end > (len(song_lyric) - 1):
+                render_end = len(song_lyric) - 1
 
                 # Clear the lines when the lyrics can't cover all the screen
                 cl_line = num_rows- offset - ( render_end - v - 1 ) - mid_line
@@ -68,14 +68,14 @@ def print_lyric(client, lyric, stdscr):
     for i in range(render_start, render_end):
         stdscr.move(l, 0)
         stdscr.clrtoeol()
-        line = str(lyric[i].get_verse())
+        line = str(song_lyric[i].get_verse())
         stdscr.addstr(l, num_cols//2 - len(line)//2, line)
         l += 1
 
     # Highlight the verse that is being singed
     stdscr.move(hl_line - info_lines, 0)
     stdscr.clrtoeol()
-    line = str(lyric[v].get_verse())
+    line = str(song_lyric[v].get_verse())
     stdscr.addstr(hl_line - info_lines, num_cols//2 - len(line)//2, line, curses.A_BOLD)
 
     # Clear the offset part of the screen to be sure that are blank line
