@@ -2,6 +2,7 @@
 
 import argparse
 import ui
+import lyric
 import curses
 import subprocess
 
@@ -9,10 +10,10 @@ from os import listdir
 from os.path import isfile, join
 from mpd import MPDClient
 
-from lyric import get_lyric_data
 
 lyrics_folder = '/home/fonsy/musica/foobar/lyrics/'
 editor = 'nvim'
+
 
 def loop(stdscr):
     # Connect to MPD server
@@ -35,7 +36,7 @@ def loop(stdscr):
     title = client.currentsong()['title']
     prev_lyric = artist + ' - ' + title + '.lrc'
     if prev_lyric in lyrics_files:
-        song_lyric = get_lyric_data(lyrics_folder + prev_lyric)
+        song_lyric = lyric.get_lyric_data(lyrics_folder + prev_lyric)
         song_lyric.sort()
 
     while (1):
@@ -54,14 +55,14 @@ def loop(stdscr):
 
                 # Get the lyric if the song playing is new
                 if prev_lyric != lyric_filename:
-                    lyric = get_lyric_data(lyrics_folder + lyric_filename)
+                    song_lyric = lyric.get_lyric_data(lyrics_folder + lyric_filename)
 
                     # Inform the user that the lyrics is found
                     ui.generating_lyrics_message(stdscr)
                     stdscr.box()
                     stdscr.refresh()
 
-                    lyric.sort()
+                    song_lyric.sort()
 
                     prev_lyric = lyric_filename
 
