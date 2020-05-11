@@ -7,7 +7,7 @@ import lyric
 class TestLyric(unittest.TestCase):
 
     def setUp(self):
-        lyric_file = 'blink-182 - Happy Days.lrc'
+        lyric_file = 'sample.lrc'
         self.song_lyric = lyric.get_lyric_data(lyric_file)
         self.song_lyric.sort()
 
