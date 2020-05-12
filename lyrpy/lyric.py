@@ -3,7 +3,7 @@
 # Display the lyrics of the song is playing on MPD, with sync
 
 import re
-from Verse import Verse
+from .Verse import Verse
 
 
 def get_lyric_data(lyric_file):

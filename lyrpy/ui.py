@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import curses
-from lyric import sync_verse
+from .lyric import sync_verse
 
 def print_lyric(client, song_lyric, stdscr):
     # Dimension of the terminal

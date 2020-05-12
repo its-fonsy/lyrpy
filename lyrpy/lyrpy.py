@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
-import ui
-import lyric
-import config
+from . import ui
+from . import lyric
+from . import config
 
 import argparse
 import curses
@@ -117,6 +117,7 @@ def main():
     if args.editor:
         global editor
         editor = args.editor[0]
+
     curses.wrapper(loop)
 
 
