@@ -21,4 +21,9 @@ setuptools.setup(
     ],
     python_requires='>=3.8',
     install_requires=[ "python-mpd2" ],
+    entry_points={
+        'console_scripts': [
+            'lyrpy = lyrpy.lyrpy:main',
+        ],
+    }
 )
