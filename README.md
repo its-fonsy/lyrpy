@@ -32,7 +32,7 @@ launching it with the flag
 When `lyrpy` is running
 
 + pressing `q` will quit the program
-+ pressing `o` will open the current lyrics in a text editor
++ pressing `o` will open the current lyric in a text editor
 
 The text editor can be set in the `lyrpy.conf` or with the flag
 
