@@ -1,16 +1,16 @@
-# Introduction
+## Introduction
 `lyrpy` is a terminal application to display the lyric of a song played on the `mpd server`. It's based on
 `Python3` and `ncurses` and has the ability to highlight the verse that is being singed.
 
 ![lyrpy](doc/img/lyrpy.png)
 
-### Requirements
+## Requirements
 
 + GNU Linux as Operative System
 + `mpd` package installed
 + `python3.8` (or greater) and `pip`
 
-### Installation
+## Installation
 Clone the repo and run the installer.
 
 	$ git clone https://github.com/its-fonsy/lyrpy
