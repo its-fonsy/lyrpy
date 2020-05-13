@@ -43,18 +43,15 @@ def loop(stdscr):
 
     while (1):
         key = stdscr.getch()
-
         artist = client.currentsong()['artist']
         title = client.currentsong()['title']
 
         if(client.status()['state'] == 'play'):
-
             # Checking if the lyrics is in the folder
             # Example of a file name: 'blink182 - First Date.lrc'
             lyric_filename = artist + ' - ' + title + '.lrc'
 
             if lyric_filename in lyrics_files:
-
                 # Get the lyric if the song playing is new
                 if prev_lyric != lyric_filename:
                     song_lyric = lyric.get_lyric_data(lyrics_folder + lyric_filename)
@@ -63,9 +60,7 @@ def loop(stdscr):
                     ui.generating_lyrics_message(stdscr)
                     stdscr.box()
                     stdscr.refresh()
-
                     song_lyric.sort()
-
                     prev_lyric = lyric_filename
 
                 # Print the lyric
