@@ -38,7 +38,7 @@ The text editor can be set in the `lyrpy.conf` or with the flag
 
 	$ lyrpy -e EDITOR
 
-### Lyrics Files
+## Lyrics Files
 The program will search in the lyrics directory (specified in the `lyrpy.conf` or with the flag `-d`) for
 `.lrc` files. To match the song that is playing on the `mpd server` the files must be named:
 
@@ -70,6 +70,6 @@ The `.lrc` files must be similar to this
 
 Lyrics files can be found on the internet, Google will be your best friend!
 
-#### Example
+## Example
 `mpd` is playing _Numb_ by _Linkin Park_. The lyrics directory is set as `~/music/lyrics` via the config
 file. To let `lyrpy` work, inside that folder (`~/music/lyrics`), must be `Linkin Park - Numb.lrc`.
