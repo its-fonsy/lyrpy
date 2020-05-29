@@ -2,10 +2,9 @@
 
 from . import ui
 from . import lyric
-from . import config
 from . import search
+from . import lyrics_folder, editor
 
-import argparse
 import curses
 import subprocess
 
@@ -13,10 +12,6 @@ from os import listdir
 from os.path import isfile, join
 from mpd import MPDClient
 
-# Read the config file in $HOME/.config/lyrpy
-lyr_config = config.read()
-lyrics_folder = lyr_config['Default']['lyrics_directory']
-editor = lyr_config['Default']['editor']
 
 def loop(stdscr):
     # Connect to MPD server
@@ -93,33 +88,25 @@ def loop(stdscr):
             lyrics_files = [f for f in listdir(lyrics_folder) if isfile(join(lyrics_folder, f))]
 
         if ( key == ord('s') ):
-            # Press 'o' to open the lyric file
+            # Press 's' to open the lyric file
             curses.endwin()
-            search.main(artist, title)
+            search.loop(stdscr, artist, title)
+
+            # Refresh the current lyric
+            prev_lyric = "Change the lyric bro"
+            lyrics_files = [f for f in listdir(lyrics_folder) if isfile(join(lyrics_folder, f))]
+
+            # Sometime the mpd client disconnect
+            try:
+                client.connect("localhost", 6600)
+            except:
+                pass
 
     client.close()
     client.disconnect()
 
 
 def main():
-    parser = argparse.ArgumentParser( \
-                description='Display sync lyric of the current playing song on mpd server')
-
-    parser.add_argument('-d', '--lyrics-dir', nargs=1, \
-                         help="Specify the location of the lyrics directory")
-    parser.add_argument('-e', '--editor', nargs=1 , \
-                         help="Specify the editor to use to modify lyrics file")
-
-    # Args overwrite the config file
-    args = parser.parse_args()
-    if args.lyrics_dir:
-        global lyrics_folder
-        lyrics_folder = args.lyrics_folder[0]
-
-    if args.editor:
-        global editor
-        editor = args.editor[0]
-
     curses.wrapper(loop)
 
 
