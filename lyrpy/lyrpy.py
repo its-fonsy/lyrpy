@@ -3,6 +3,7 @@
 from . import ui
 from . import lyric
 from . import config
+from . import search
 
 import argparse
 import curses
@@ -45,6 +46,7 @@ def loop(stdscr):
         key = stdscr.getch()
         artist = client.currentsong()['artist']
         title = client.currentsong()['title']
+        stdscr.clear()
 
         if(client.status()['state'] == 'play'):
             # Checking if the lyrics is in the folder
@@ -89,6 +91,11 @@ def loop(stdscr):
             # Refresh the current lyric
             prev_lyric = "Change the lyric bro"
             lyrics_files = [f for f in listdir(lyrics_folder) if isfile(join(lyrics_folder, f))]
+
+        if ( key == ord('s') ):
+            # Press 'o' to open the lyric file
+            curses.endwin()
+            search.main(artist, title)
 
     client.close()
     client.disconnect()
