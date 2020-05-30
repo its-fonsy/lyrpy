@@ -108,6 +108,8 @@ def print_menu_title(stdscr, artist, title):
 def print_menu(stdscr, selected_row_idx):
     h, w = stdscr.getmaxyx()
     for idx, row in enumerate(menu):
+        if len(row) > (w-10):
+            row = row[:w-10] + '...'
         x = w//2 - len(row)//2
         y = h//2 - len(menu)//2 + idx
         if idx == selected_row_idx:
@@ -241,14 +243,16 @@ def loop(stdscr, artist, title):
     stdscr.box()
     stdscr.refresh()
 
-    # Get a list of found lyrics
-    url = search_url(artist, title)
-    lyrics_list = result_list(url)
-
     # Create the menu
     global menu
     menu = []
     current_row = 0
+
+    # while len(menu) == 0:
+    # Get a list of found lyrics
+    url = search_url(artist, title)
+    lyrics_list = result_list(url)
+
     for lyric in lyrics_list:
         menu.append(lyric[0])
     menu.append('EXIT')
