@@ -106,7 +106,6 @@ def print_menu_title(stdscr, artist, title):
 
 
 def print_menu(stdscr, selected_row_idx):
-    stdscr.clear()
     h, w = stdscr.getmaxyx()
     for idx, row in enumerate(menu):
         x = w//2 - len(row)//2
@@ -117,7 +116,6 @@ def print_menu(stdscr, selected_row_idx):
             stdscr.attroff(curses.color_pair(1))
         else:
             stdscr.addstr(y, x, row)
-    stdscr.refresh()
 
 
 def print_searching_msg(stdscr, artist, title):
@@ -131,6 +129,7 @@ def print_searching_msg(stdscr, artist, title):
 
     stdscr.addstr(num_rows // 2 - 1 , num_cols//2 - len_msg//2, msg)
     stdscr.addstr(num_rows // 2 - 1 , num_cols//2 - len_msg//2 + len(msg), song_msg, curses.A_BOLD)
+
 
 def print_saving_msg(stdscr):
     # Clear the screen
@@ -146,6 +145,89 @@ def print_saving_msg(stdscr):
     stdscr.addstr(num_rows // 2, num_cols//2 - len(conf_msg)//2, conf_msg)
 
     stdscr.refresh()
+
+
+def print_help_msg(stdscr, song_selected):
+    stdscr.clear()
+    num_rows, num_cols = stdscr.getmaxyx()
+    max_len_msg = 46
+    x = num_cols//2 - max_len_msg//2
+    y = num_rows//2 - 4
+
+    # Writing up message
+    stdscr.addstr(y,    x, "Press")
+    stdscr.addstr(y,  x+6, "k", curses.A_BOLD)
+    stdscr.addstr(y,  x+8, "or")
+    stdscr.addstr(y, x+11, "UP_ARROW", curses.A_BOLD)
+    if song_selected:
+        stdscr.addstr(y, x+20, "to scroll up the lyric")
+    else:
+        stdscr.addstr(y, x+20, "to move up in the menu")
+
+    # Writing down message
+    stdscr.addstr(y+1,    x, "Press")
+    stdscr.addstr(y+1,  x+6, "j", curses.A_BOLD)
+    stdscr.addstr(y+1,  x+8, "or")
+    stdscr.addstr(y+1, x+11, "DOWN_ARROW", curses.A_BOLD)
+    if song_selected:
+        stdscr.addstr(y+1, x+22, "to scroll down the lyric")
+    else:
+        stdscr.addstr(y+1, x+22, "to move down in the menu")
+
+    # Writing ENTER message
+    stdscr.addstr(y+2,    x, "Press")
+    stdscr.addstr(y+2,  x+6, "ENTER", curses.A_BOLD)
+    if song_selected:
+        stdscr.addstr(y+2, x+12, "to save the lyric")
+    else:
+        stdscr.addstr(y+2, x+12, "to select a lyric")
+
+    # Writing quit message
+    stdscr.addstr(y+3,   x, "Press")
+    stdscr.addstr(y+3, x+6, "q", curses.A_BOLD)
+    if song_selected:
+        stdscr.addstr(y+3, x+8, "to select another lyric")
+    else:
+        stdscr.addstr(y+3, x+8, "to return viewing the lyric")
+
+    ## Drawing the box
+    pad = 2
+
+    # Top line
+    stdscr.addstr(y - pad, x - pad + 1, "─"*( max_len_msg + pad ))
+    # Top-left corner
+    stdscr.addstr(y - pad, x - pad, "┌")
+    # Top-right corner
+    stdscr.addstr(y - pad, x + pad + max_len_msg - 1, "┐")
+
+    # Bottom line
+    stdscr.addstr(y + 3 + pad, x - pad + 1, "─"*( max_len_msg + pad ))
+    # Bottom-left corner
+    stdscr.addstr(y + 3 + pad, x - pad, "└")
+    # Bottom-right corner
+    stdscr.addstr(y + 3 + pad, x + pad + max_len_msg - 1, "┘")
+
+    # Left line
+    for i in range(y-pad + 1, y + 3 + pad):
+        stdscr.addstr(i, x - pad, "│")
+
+    # Right line
+    for i in range(y-pad + 1, y + 3 + pad):
+        stdscr.addstr(i, x + pad + max_len_msg - 1, "│")
+
+
+    x_help = num_cols//2 - len("help")//2
+    stdscr.addstr(y - pad, x_help, "HELP", curses.A_BOLD)
+    x_hlp_exit = num_cols//2 - len("Press any key to exit from the help")//2
+    stdscr.addstr(y+3+pad, x_hlp_exit, "Press any key to exit from the help")
+
+    stdscr.refresh()
+
+    stdscr.nodelay(0)
+    key = stdscr.getch()
+    stdscr.nodelay(1)
+
+
 
 def loop(stdscr, artist, title):
 
@@ -174,6 +256,7 @@ def loop(stdscr, artist, title):
     while(1):
 
         key = stdscr.getch()
+        stdscr.clear()
 
         num_rows, num_cols = stdscr.getmaxyx()
 
@@ -239,3 +322,6 @@ def loop(stdscr, artist, title):
                 current_row = 0
             else:
                 break
+
+        if ( key == ord('?') ):
+            print_help_msg(stdscr, song_selected)
