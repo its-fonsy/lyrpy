@@ -21,6 +21,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: POSIX :: Linux" ],
     python_requires=">=3.8",
-    install_requires=[ "python-mpd2" ],
+    install_requires=[ "python-mpd2", "requests", "bs4" ],
     entry_points={ "console_scripts": [ "lyrpy = lyrpy.lyrpy:main" ]}
 )
