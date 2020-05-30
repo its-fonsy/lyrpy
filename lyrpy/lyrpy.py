@@ -43,7 +43,7 @@ def loop(stdscr):
         title = client.currentsong()['title']
         stdscr.clear()
 
-        if(client.status()['state'] == 'play'):
+        if(client.status()['state'] in ['play', 'pause']):
             # Checking if the lyrics is in the folder
             # Example of a file name: 'blink182 - First Date.lrc'
             lyric_filename = artist + ' - ' + title + '.lrc'
@@ -86,6 +86,9 @@ def loop(stdscr):
             # Refresh the current lyric
             prev_lyric = "Change the lyric bro"
             lyrics_files = [f for f in listdir(lyrics_folder) if isfile(join(lyrics_folder, f))]
+
+        if ( key == ord('?') ):
+            ui.print_help_message(stdscr)
 
         if ( key == ord('s') ):
             # Press 's' to open the lyric file
