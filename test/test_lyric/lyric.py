@@ -51,3 +51,8 @@ def sync_verse(time, song_lyric):
            (time - song_lyric[v].get_time()) > 0.0 and \
            (time - song_lyric[v+1].get_time()) < 0.0:
                return song_lyric[v], v
+
+    if (time - song_lyric[0].get_time()) < 0.0:
+        return song_lyric[0], 0
+    else:
+        return song_lyric[len(song_lyric) - 1], len(song_lyric) - 1
