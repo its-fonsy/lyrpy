@@ -216,7 +216,7 @@ def print_help_message(stdscr):
 
 
     x_help = num_cols//2 - len("help")//2
-    stdscr.addstr(y - pad, x_help, "HELP", curses.A_BOLD)
+    stdscr.addstr(y - pad, x_help, "┤ HELP ├", curses.A_BOLD)
     x_hlp_exit = num_cols//2 - len("Press any key to exit from the help")//2
     stdscr.addstr(y+(n_msg - 1)+pad, x_hlp_exit, "Press any key to exit from the help")
 

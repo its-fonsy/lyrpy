@@ -219,7 +219,7 @@ def print_help_msg(stdscr, song_selected):
 
 
     x_help = num_cols//2 - len("help")//2
-    stdscr.addstr(y - pad, x_help, "HELP", curses.A_BOLD)
+    stdscr.addstr(y - pad, x_help, "┤ HELP ├", curses.A_BOLD)
     x_hlp_exit = num_cols//2 - len("Press any key to exit from the help")//2
     stdscr.addstr(y+3+pad, x_hlp_exit, "Press any key to exit from the help")
 
