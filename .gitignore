@@ -2,3 +2,9 @@ __pycache__/
 build/
 dist/
 *egg-info*
+doc/img/lyrpy.png
+doc/img/lyrpy_conf_save.png
+doc/img/lyrpy_lyric_searched.png
+doc/img/lyrpy_search_result.png
+doc/img/lyrpy_searching.png
+
