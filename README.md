@@ -86,15 +86,15 @@ The text editor can be set in the `lyrpy.conf` or with the flag
 If you are playing a song that has no lyric you can press `s` and `lyrpy` will search on the internet
 if can find something
 
-![lyrpy](doc/img/lyrpy_searching.png)
+![lyrpy](doc/img/lyrpy_searching_res.png)
 
 Then it display what it found
 
-![lyrpy](doc/img/lyrpy_search_result.png)
+![lyrpy](doc/img/lyrpy_search_result_red.png)
 
 You can choose the result you want with `j` and `k` (or arrow key). Then confirm with `Enter`.
 
-![lyrpy](doc/img/lyrpy_lyric_searched.png)
+![lyrpy](doc/img/lyrpy_lyric_searched_res.png)
 
 lyrpy show you the lyric selected. You can scroll with `j` and `k`.
 If you like it you can save it with `Enter` or exit with `q`.
