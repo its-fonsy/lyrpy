@@ -90,7 +90,7 @@ if can find something
 
 Then it display what it found
 
-![lyrpy](doc/img/lyrpy_search_result_red.png)
+![lyrpy](doc/img/lyrpy_search_result_res.png)
 
 You can choose the result you want with `j` and `k` (or arrow key). Then confirm with `Enter`.
 
