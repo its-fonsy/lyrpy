@@ -1,11 +1,8 @@
 # Place holder
 import argparse
-from . import config
+import os
 
-# Read the config file in $HOME/.config/lyrpy
-lyr_config = config.read()
-lyrics_folder = lyr_config['Default']['lyrics_directory']
-editor = lyr_config['Default']['editor']
+lyrics_folder = os.environ['LYRICS_DIR']
 
 # Read argparse
 parser = argparse.ArgumentParser( \

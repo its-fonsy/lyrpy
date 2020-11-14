@@ -3,7 +3,7 @@
 from . import ui
 from . import lyric
 from . import search
-from . import lyrics_folder, editor
+from . import lyrics_folder
 
 import curses
 import subprocess
@@ -78,32 +78,9 @@ def loop(stdscr):
         if ( key == ord('q') ):
             # Press 'q' to exit
             break
-        if ( key == ord('o') ):
-            # Press 'o' to open the lyric file
-            curses.endwin()
-            subprocess.run([editor, lyrics_folder + lyric_filename])
-
-            # Refresh the current lyric
-            prev_lyric = "Change the lyric bro"
-            lyrics_files = [f for f in listdir(lyrics_folder) if isfile(join(lyrics_folder, f))]
 
         if ( key == ord('?') ):
             ui.print_help_message(stdscr)
-
-        if ( key == ord('s') ):
-            # Press 's' to open the lyric file
-            curses.endwin()
-            search.loop(stdscr, artist, title)
-
-            # Refresh the current lyric
-            prev_lyric = "Change the lyric bro"
-            lyrics_files = [f for f in listdir(lyrics_folder) if isfile(join(lyrics_folder, f))]
-
-            # Sometime the mpd client disconnect
-            try:
-                client.connect("localhost", 6600)
-            except:
-                pass
 
     client.close()
     client.disconnect()
