@@ -36,9 +36,23 @@ launching it with the flag
 
 	$ lyrpy -d LYRYCS_DIR
 
+## Lyrics Directory
+The program will search for `.lrc` files into the lyrics directory. The directory can be specified with the
+environment variable
+
+	export LYRICS_DIR="/full/path/to/lyrics/dir/"
+
+for example in the `~/.profile` or `~/.bashrc`.
+
+An alternative is to run the program with the flag `-d`
+
+	$ lyrpy -d /full/path/to/lyrics/dir/
+
+**IMPORTANT**: the path must be absolute and end with a `/`.
+Things like `~/music/lyric/` or `/media/music/lyric` will not work!
+
 ## Lyrics Files
-The program will search in the lyrics directory (specified in the `lyrpy.conf` or with the flag `-d`) for
-`.lrc` files. To match the song that is playing on the `mpd server` the files must be named:
+To match the song that is playing on the `mpd server` the files mukst be named:
 
 `ARTIST - TITLE.lrc`
 
@@ -70,36 +84,6 @@ For example if you are listening *Numb* by *Linkin Park* the file must be named
 
 	Linkin Park - Numb.lrc
 
-## Keybindings
-When `lyrpy` is running
-
-+ pressing `s` will search the lyric of the current song on the internet
-+ pressing `o` will open the current lyric in a text editor
-+ pressing `q` will quit the program
-+ pressing `?` will open a help menu.
-
-The text editor can be set in the `lyrpy.conf` or with the flag
-
-	$ lyrpy -e EDITOR
-
-## The search feature
-If you are playing a song that has no lyric you can press `s` and `lyrpy` will search on the internet
-if can find something
-
-![lyrpy](doc/img/lyrpy_searching_res.png)
-
-Then it display what it found
-
-![lyrpy](doc/img/lyrpy_search_result_res.png)
-
-You can choose the result you want with `j` and `k` (or arrow key). Then confirm with `Enter`.
-
-![lyrpy](doc/img/lyrpy_lyric_searched_res.png)
-
-lyrpy show you the lyric selected. You can scroll with `j` and `k`.
-If you like it you can save it with `Enter` or exit with `q`.
-
-If you press `Enter` lyrpy will ask to confirm and show where it gonna be saved.
 
 ## Problems
 + right now lyrpy doesn't support `offset`, so use lyrics without it

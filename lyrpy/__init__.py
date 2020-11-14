@@ -2,7 +2,11 @@
 import argparse
 import os
 
-lyrics_folder = os.environ['LYRICS_DIR']
+try:
+    lyrics_folder = os.environ['LYRICS_DIR']
+except:
+    print("Use LYRICS_DIR env variable to set the lyrics directory")
+    print('or use the "-d LYRICS_DIR" flag')
 
 # Read argparse
 parser = argparse.ArgumentParser( \

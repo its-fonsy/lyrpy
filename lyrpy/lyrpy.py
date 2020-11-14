@@ -2,8 +2,7 @@
 
 from . import ui
 from . import lyric
-from . import search
-from . import lyrics_folder
+from . import lyrics_folder # variable
 
 import curses
 import subprocess
