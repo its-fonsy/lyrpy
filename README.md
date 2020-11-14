@@ -87,4 +87,3 @@ For example if you are listening *Numb* by *Linkin Park* the file must be named
 
 ## Problems
 + right now lyrpy doesn't support `offset`, so use lyrics without it
-+ sometimes when search for too long a song on the internet it crashes
