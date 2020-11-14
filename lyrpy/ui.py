@@ -3,6 +3,7 @@
 import curses
 from .lyric import sync_verse
 
+
 def print_lyric(client, song_lyric, stdscr):
     # Dimension of the terminal
     num_rows, num_cols = stdscr.getmaxyx()
@@ -179,16 +180,6 @@ def print_help_message(stdscr):
     stdscr.addstr(y,   x, "Press")
     stdscr.addstr(y, x+6, "q", curses.A_BOLD)
     stdscr.addstr(y, x+8, "to exit")
-
-    # Writing open in a text editor  message
-    stdscr.addstr(y+1,   x, "Press")
-    stdscr.addstr(y+1, x+6, "o", curses.A_BOLD)
-    stdscr.addstr(y+1, x+8, "to open the current lyric in text editor")
-
-    # Writing search message
-    stdscr.addstr(y+2,   x, "Press")
-    stdscr.addstr(y+2, x+6, "s", curses.A_BOLD)
-    stdscr.addstr(y+2, x+8, "to search the lyric of the current song on the web")
 
     ## Drawing the box
 
