@@ -5,8 +5,7 @@ import os
 try:
     lyrics_folder = os.environ['LYRICS_DIR']
 except:
-    print("Use LYRICS_DIR env variable to set the lyrics directory")
-    print('or use the "-d LYRICS_DIR" flag')
+    pass
 
 # Read argparse
 parser = argparse.ArgumentParser( \
@@ -24,3 +23,7 @@ if args.lyrics_dir:
 
 if args.editor:
     editor = args.editor[0]
+
+if lyrics_folder is None:
+    print("Set environment variable LYRICS_DIR to set the lyrics directory")
+    print('or use the "-d LYRICS_DIR" flag')
