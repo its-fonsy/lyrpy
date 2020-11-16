@@ -40,7 +40,7 @@ def loop(stdscr):
         key = stdscr.getch()
         artist = client.currentsong()['artist']
         title = client.currentsong()['title']
-        stdscr.clear()
+        # stdscr.clear()
 
         if(client.status()['state'] in ['play', 'pause']):
             # Checking if the lyrics is in the folder
@@ -54,7 +54,6 @@ def loop(stdscr):
 
                     # Inform the user that the lyrics is found
                     ui.generating_lyrics_message(stdscr)
-                    stdscr.box()
                     stdscr.refresh()
                     song_lyric.sort()
                     prev_lyric = lyric_filename
@@ -71,7 +70,6 @@ def loop(stdscr):
                 ui.print_song_info(stdscr, client)
 
             # Draw the border of the window
-            stdscr.box()
             stdscr.refresh()
 
         if ( key == ord('q') ):
