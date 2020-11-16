@@ -78,9 +78,6 @@ def loop(stdscr):
             # Press 'q' to exit
             break
 
-        if ( key == ord('?') ):
-            ui.print_help_message(stdscr)
-
     client.close()
     client.disconnect()
 
