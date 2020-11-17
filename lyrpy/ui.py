@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import curses
-from .lyric import Lyric
 
 class UI:
 
@@ -57,23 +56,6 @@ class UI:
                 render_start = 0
                 render_end = num_rows - 2*offset
 
-        # OLD LAST LINE ON SCREEN SCROLL
-        # if v > (num_rows - 2*offset):
-        #     hl_line = num_rows - offset - 1
-        #     render_start = v - (num_rows - 2*offset) + 1
-        #     render_end = v
-        # elif v == (num_rows - 2*offset):
-        #     hl_line = num_rows - offset - 1
-        #     render_start = 1
-        #     render_end = num_rows - 2*offset + 1
-        # else:
-        #     hl_line = v + offset
-        #     render_start = 0
-        #     if len(lyric) < num_rows:
-        #         render_end = len(lyric) - 1
-        #     else:
-        #         render_end = num_rows - 2*offset
-
         # Print all the lyrics verses (no highlight)
         l = offset - info_lines
         for i in range(render_start, render_end):
@@ -113,19 +95,6 @@ class UI:
         self.stdscr.addstr(num_rows // 2 - 1 , num_cols//2 - len(message)//2, message, curses.A_BOLD)
 
         self.stdscr.refresh()
-
-
-    def generating_lyrics_message(self):
-        # Get tereminal dimension
-        num_rows, num_cols = self.stdscr.getmaxyx()
-
-        # Clear the screen
-        for i in range(num_rows):
-            self.stdscr.move(i, 0)
-            self.stdscr.clrtoeol()
-
-        message = "Lyrics file found!"
-        self.stdscr.addstr(num_rows // 2 - 1 , num_cols//2 - len(message)//2, message)
 
 
     def write_song_info(self, song_time, song_dur, lyric):
