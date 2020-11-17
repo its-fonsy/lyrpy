@@ -4,15 +4,12 @@ from .ui import UI
 from .lyric import Lyric
 from . import lyrics_folder # variable
 
-import curses
-import subprocess
-
 from os import listdir
 from os.path import isfile, join
 from mpd import MPDClient
 
 
-def loop():
+def main():
     # Connect to MPD server
     client = MPDClient()
     client.timeout = None
@@ -43,18 +40,20 @@ def loop():
             song_dur = float(client.status()['duration'])
             cur_song = Lyric(artist, title)
 
-            # update the song if changes
-            if (cur_song.filename() in lyrics_files) and song != cur_song:
-                song = cur_song
-                song.generate_lyric()
+            if cur_song.filename() in lyrics_files:
 
-            # Print the lyric
-            ui.write_lyric(song_time, song)
-            ui.write_song_info(song_time, song_dur, song)
+                # update the song if changes
+                if song != cur_song:
+                    song = cur_song
+                    song.generate_lyric()
 
-        else:
-            ui.write_no_lyrics_message()
-            ui.write_song_info(song_time, song_dur, song)
+                # Print the lyric
+                ui.write_lyric(song_time, song)
+                ui.write_song_info(song_time, song_dur, song)
+
+            else:
+                ui.write_no_lyrics_message()
+                ui.write_song_info(song_time, song_dur, song)
 
         if ui.key_pressed() == ord('q'):
             break
@@ -65,10 +64,6 @@ def loop():
     # close MPD client
     client.close()
     client.disconnect()
-
-
-def main():
-    loop()
 
 
 if __name__ == "__main__":
