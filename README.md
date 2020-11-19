@@ -2,7 +2,7 @@
 lyrpy is a terminal application to display the lyric of a song played on the `mpd server`. It's based on
 `Python3` and `ncurses` and has the ability to highlight the verse that is being singed.
 
-![lyrpy](doc/img/shot.png)
+![lyrpy](doc/img/lyrpy.gif)
 
 ## Requirements
 
