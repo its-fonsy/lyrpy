@@ -1,8 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 from .ui import UI
 from .lyric import Lyric
-from . import lyrics_folder # variable
+from . import lyrics_folder # constant
 
 from os import listdir
 from os.path import isfile, join
@@ -21,39 +21,31 @@ def main():
 
     # Folder with all lyrics files
     lyrics_files = [f for f in listdir(lyrics_folder) if isfile(join(lyrics_folder, f))]
-
-    artist = client.currentsong()['artist']
-    title = client.currentsong()['title']
-    song = Lyric(artist, title)    
-
-    if song.filename() in lyrics_files:
-        song.generate_lyric()
+    song = Lyric('dummy', 'song')    
 
     while (1):
+        # getting info of the current song
         artist = client.currentsong()['artist']
         title = client.currentsong()['title']
 
-        if(client.status()['state'] in ['play', 'pause']):
+        song_time = float(client.status()['elapsed'])
+        song_dur = float(client.status()['duration'])
+        cur_song = Lyric(artist, title)
 
-            # getting info of the current song
-            song_time = float(client.status()['elapsed'])
-            song_dur = float(client.status()['duration'])
-            cur_song = Lyric(artist, title)
+        if cur_song.filename() in lyrics_files:
 
-            if cur_song.filename() in lyrics_files:
+            # update the song if changes
+            if song != cur_song:
+                song = cur_song
+                song.generate_lyric()
 
-                # update the song if changes
-                if song != cur_song:
-                    song = cur_song
-                    song.generate_lyric()
+            # Print the lyric
+            ui.write_lyric(song_time, song)
+            ui.write_song_info(song_time, song_dur, song)
 
-                # Print the lyric
-                ui.write_lyric(song_time, song)
-                ui.write_song_info(song_time, song_dur, song)
-
-            else:
-                ui.write_no_lyrics_message()
-                ui.write_song_info(song_time, song_dur, song)
+        else:
+            ui.write_no_lyrics_message()
+            ui.write_song_info(song_time, song_dur, song)
 
         if ui.key_pressed() == ord('q'):
             break
