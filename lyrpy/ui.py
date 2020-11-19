@@ -62,8 +62,12 @@ class UI:
             self.stdscr.move(l, 0)
             self.stdscr.clrtoeol()
             line = lyric.line(i)
-            # line = str(song_lyric[i].get_verse())
-            self.stdscr.addstr(l, num_cols//2 - len(line)//2, line)
+
+            if len(line) > num_cols:
+                self.stdscr.addstr(l, 2, line[:num_cols - 4])
+            else:
+                self.stdscr.addstr(l, num_cols//2 - len(line)//2, line)
+
             l += 1
 
         # Highlight the verse that is being singed
