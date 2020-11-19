@@ -31,10 +31,7 @@ Simply run
 
 now the program will look for `.lrc` files that matches the song being played on `mpd` server.
 
-The folder with all the lyrycs files can be set in the `$HOME/.config/lyrpy/lyrpy.conf` file, or
-launching it with the flag
-
-	$ lyrpy -d LYRYCS_DIR
+To see how to set the lyrics directory and how to name `lrc` files correctly continue reading.
 
 ## Lyrics Directory
 The program will search for `.lrc` files into the lyrics directory. The directory can be specified with the
@@ -78,7 +75,7 @@ The `.lrc` files must be similar to this
 [00:42.28]Every step that I take
 ....
 ```
-**Timestamp are required**.
+**Timestamp are required**
 
 For example if you are listening *Numb* by *Linkin Park* the file must be named
 
