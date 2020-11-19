@@ -7,14 +7,8 @@ from lyrpy.lyric import Lyric, Verse
 class TestLyric(unittest.TestCase):
 
     def setUp(self):
-        lyric_file = 'test/sample.lrc'
-        self.l = Lyric('test', 'unitest')
-        self.l.generate_lyric(lyric_file)
-
-
-    # def test_lyric(self):
-    #     # Checking just the lenght of the list
-    #     self.assertEqual(len(self.song_lyric), 57)
+        self.l = Lyric('blink-182', 'Happy Days')
+        self.l.generate_lyric()
 
 
     def test_verse(self):
