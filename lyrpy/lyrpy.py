@@ -41,11 +41,11 @@ def main():
 
             # Print the lyric
             ui.write_lyric(song_time, song)
-            ui.write_song_info(song_time, song_dur, song)
 
         else:
             ui.write_no_lyrics_message()
-            ui.write_song_info(song_time, song_dur, song)
+
+        ui.write_song_info(song_time, song_dur, cur_song)
 
         if ui.key_pressed() == ord('q'):
             break
