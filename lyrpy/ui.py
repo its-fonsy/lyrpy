@@ -63,7 +63,7 @@ class UI:
             self.stdscr.clrtoeol()
             line = lyric.line(i)
 
-            if len(line) > num_cols:
+            if len(line) > (num_cols - 4):
                 self.stdscr.addstr(l, 2, line[:num_cols - 4])
             else:
                 self.stdscr.addstr(l, num_cols//2 - len(line)//2, line)
@@ -74,8 +74,11 @@ class UI:
         self.stdscr.move(hl_line - info_lines, 0)
         self.stdscr.clrtoeol()
         line = lyric.line(v)
-        self.stdscr.addstr(hl_line - info_lines, num_cols//2 - len(line)//2, line, curses.A_BOLD)
 
+        if len(line) > (num_cols - 4):
+            self.stdscr.addstr(hl_line - info_lines, 2, line[:num_cols - 4], curses.A_BOLD)
+        else:
+            self.stdscr.addstr(hl_line - info_lines, num_cols//2 - len(line)//2, line, curses.A_BOLD)
         # Clear the offset part of the screen to be sure that are blank line
         for i in range(offset - info_lines):
             self.stdscr.move(i, 0)
