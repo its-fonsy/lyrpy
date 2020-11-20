@@ -16,7 +16,7 @@ Clone the repo and run the installer.
 	$ git clone https://github.com/its-fonsy/lyrpy
 	$ cd lyrpy
 
-To install for evryone
+To install for everyone
 
 	$ sudo python3 setup.py install
 
