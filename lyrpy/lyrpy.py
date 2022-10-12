@@ -3,6 +3,7 @@
 from .ui import UI
 from .lyric import Lyric
 from . import lyrics_folder # constant
+from .cmus_client import cmus_get_artist, cmus_get_title, cmus_get_time, cmus_get_dur
 
 from os import listdir
 from os.path import isfile, join
@@ -42,15 +43,14 @@ def main():
         if client == "mpd":
             artist = mpd_client.currentsong()['artist']
             title = mpd_client.currentsong()['title']
-
             song_time = float(mpd_client.status()['elapsed'])
             song_dur = float(mpd_client.status()['duration'])
-
         elif client == "cmus":
-            artist = "blink-182"
-            title = "Dumpweed"
-            song_time = 12.3
-            song_dur = 133
+            s = cmus.status()
+            artist = cmus_get_artist(s)
+            title = cmus_get_title(s)
+            song_time = float(cmus_get_time(s))
+            song_dur = float(cmus_get_dur(s))
 
         cur_song = Lyric(artist, title)
 
@@ -66,6 +66,7 @@ def main():
 
         else:
             ui.write_no_lyrics_message()
+            # ui.write_debug_message(cur_song.filename())
 
         ui.write_song_info(song_time, song_dur, cur_song)
 
