@@ -37,7 +37,7 @@ class Lyric:
     def generate_lyric(self):
         self.song_lyric = []
 
-        with open(lyrics_folder + self.filename(), 'r') as lyric_data:
+        with open(lyrics_folder + '/' + self.filename(), 'r') as lyric_data:
             for line in lyric_data:
 
                 if re.search("^\[00:00.00\][A-Z,a-z]", line) or \
@@ -102,7 +102,6 @@ class Lyric:
 
     def line(self, i):
         return str(self.song_lyric[i].get_verse())
-    
 
     def __eq__(self, other):
         if isinstance(other, Lyric):

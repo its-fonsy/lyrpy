@@ -7,29 +7,51 @@ from . import lyrics_folder # constant
 from os import listdir
 from os.path import isfile, join
 from mpd import MPDClient
+from pycmus import remote
 
 
 def main():
-    # Connect to MPD server
-    client = MPDClient()
-    client.timeout = None
-    client.idletimeout = None
-    client.connect("localhost", 6600)
+
+    # Try to connect to MPD server
+    try:
+        # Connect to MPD server
+        mpd_client = MPDClient()
+        mpd_client.timeout = None
+        mpd_client.idletimeout = None
+        mpd_client.connect("localhost", 6600)
+
+        client = 'mpd'
+    except ConnectionError:
+        # Try to connect to CMUS
+        cmus = remote.PyCmus()
+        client = 'cmus'
+    except:
+        print("Nor MPD/CMUS server is running :(")
+        exit(-1)
 
     # Start the UI
     ui = UI()
 
     # Folder with all lyrics files
     lyrics_files = [f for f in listdir(lyrics_folder) if isfile(join(lyrics_folder, f))]
-    song = Lyric('dummy', 'song')    
+    song = Lyric('dummy', 'song')
 
     while (1):
-        # getting info of the current song
-        artist = client.currentsong()['artist']
-        title = client.currentsong()['title']
 
-        song_time = float(client.status()['elapsed'])
-        song_dur = float(client.status()['duration'])
+        # getting info of the current song
+        if client == "mpd":
+            artist = mpd_client.currentsong()['artist']
+            title = mpd_client.currentsong()['title']
+
+            song_time = float(mpd_client.status()['elapsed'])
+            song_dur = float(mpd_client.status()['duration'])
+
+        elif client == "cmus":
+            artist = "blink-182"
+            title = "Dumpweed"
+            song_time = 12.3
+            song_dur = 133
+
         cur_song = Lyric(artist, title)
 
         if cur_song.filename() in lyrics_files:
@@ -53,9 +75,10 @@ def main():
     # kill the UI
     ui.kill()
 
-    # close MPD client
-    client.close()
-    client.disconnect()
+    # close MPD mpd_client
+    if client == "mpd_client":
+        mpd_client.close()
+        mpd_client.disconnect()
 
 
 if __name__ == "__main__":
