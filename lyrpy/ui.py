@@ -104,6 +104,20 @@ class UI:
         self.stdscr.refresh()
 
 
+    def write_debug_message(self, message):
+        # Get tereminal dimension
+        num_rows, num_cols = self.stdscr.getmaxyx()
+
+        # Clear the screen
+        for i in range(num_rows):
+            self.stdscr.move(i, 0)
+            self.stdscr.clrtoeol()
+
+        self.stdscr.addstr(num_rows // 2 - 1 , num_cols//2 - len(message)//2, message, curses.A_BOLD)
+
+        self.stdscr.refresh()
+
+
     def write_song_info(self, song_time, song_dur, lyric):
         # Get tereminal dimension
         num_rows, num_cols = self.stdscr.getmaxyx()
