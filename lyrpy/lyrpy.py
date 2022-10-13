@@ -49,7 +49,7 @@ def main():
             s = cmus.status()
             artist = cmus_get_artist(s)
             title = cmus_get_title(s)
-            song_time = float(cmus_get_time(s))
+            song_time = float(cmus_get_time(s)) + 2.0
             song_dur = float(cmus_get_dur(s))
 
         cur_song = Lyric(artist, title)
@@ -77,7 +77,7 @@ def main():
     ui.kill()
 
     # close MPD mpd_client
-    if client == "mpd_client":
+    if client == "mpd":
         mpd_client.close()
         mpd_client.disconnect()
 
