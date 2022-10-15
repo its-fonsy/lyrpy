@@ -62,7 +62,7 @@ def main():
                 song.generate_lyric()
 
             # Print the lyric
-            ui.write_lyric(song_time, song)
+            ui.print_lyric(song_time, song)
 
         else:
             ui.write_no_lyrics_message()
