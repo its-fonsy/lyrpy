@@ -33,9 +33,9 @@ class Lyric:
     def __init__(self, _artist, _title):
         self.artist = _artist
         self.title = _title
+        self.song_lyric = []
 
     def generate_lyric(self):
-        self.song_lyric = []
 
         with open(lyrics_folder + '/' + self.filename(), 'r') as lyric_data:
             for line in lyric_data:
@@ -102,6 +102,7 @@ class Lyric:
 
     def line(self, i):
         return str(self.song_lyric[i].get_verse())
+
 
     def __eq__(self, other):
         if isinstance(other, Lyric):
