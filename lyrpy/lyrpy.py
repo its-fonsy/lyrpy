@@ -20,7 +20,6 @@ def main():
         mpd_client.timeout = None
         mpd_client.idletimeout = None
         mpd_client.connect("localhost", 6600)
-
         client = 'mpd'
     except ConnectionError:
         # Try to connect to CMUS
@@ -30,13 +29,12 @@ def main():
         print("Nor MPD/CMUS server is running :(")
         exit(-1)
 
-    # Start the UI
-    ui = UI()
-
     # Folder with all lyrics files
     lyrics_files = [f for f in listdir(lyrics_folder) if isfile(join(lyrics_folder, f))]
     song = Lyric('dummy', 'song')
 
+    # Start the UI
+    ui = UI()
     while (1):
 
         # getting info of the current song
@@ -65,10 +63,10 @@ def main():
             ui.print_lyric(song_time, song)
 
         else:
-            ui.write_no_lyrics_message()
-            # ui.write_debug_message(cur_song.filename())
+            ui.print_no_lyrics_message()
+            # ui.print_debug_message(cur_song.filename())
 
-        ui.write_song_info(song_time, song_dur, cur_song)
+        ui.print_song_info(song_time, song_dur, cur_song)
 
         if ui.key_pressed() == ord('q'):
             break

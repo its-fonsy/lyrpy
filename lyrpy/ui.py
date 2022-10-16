@@ -29,13 +29,13 @@ class UI:
             self.print_verses_from_to(l, 0, len(l)-1, svi)
             return
 
+        # Print lyirc that are at the beginning of the song
         if( svi < max_lines_to_print//2 ):
-            # Print lyirc that are at the beginning of the song
             self.print_verses_from_to(l, 0, max_lines_to_print, svi)
             return
 
-        if ( svi > (len(l) - max_lines_to_print) ):
-            # Print lyirc that are at the end of the song
+        # Print lyirc that are at the end of the song
+        if ( svi > (len(l) - max_lines_to_print//2) ):
             self.print_verses_from_to(l,
                                    len(l) - max_lines_to_print,
                                    max_lines_to_print,
@@ -68,7 +68,7 @@ class UI:
                            curses.A_BOLD if svi == (i + start_idx) else 0)
 
 
-    def write_no_lyrics_message(self):
+    def print_no_lyrics_message(self):
         # Get tereminal dimension
         num_rows, num_cols = self.stdscr.getmaxyx()
 
@@ -86,7 +86,7 @@ class UI:
         self.stdscr.refresh()
 
 
-    def write_debug_message(self, message):
+    def print_debug_message(self, message):
         # Get tereminal dimension
         num_rows, num_cols = self.stdscr.getmaxyx()
 
@@ -113,7 +113,7 @@ class UI:
         return minutes, int(seconds)
 
 
-    def write_song_info(self, song_time, song_dur, lyric):
+    def print_song_info(self, song_time, song_dur, lyric):
         # Get tereminal dimension
         num_rows, num_cols = self.stdscr.getmaxyx()
 
