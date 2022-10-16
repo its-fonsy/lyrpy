@@ -27,3 +27,7 @@ if args.editor:
 if lyrics_folder is None:
     print("Set environment variable LYRICS_DIR to set the lyrics directory")
     print('or use the "-d LYRICS_DIR" flag')
+
+if lyrics_folder[-1] != '/':
+    lyrics_folder += '/'
+
