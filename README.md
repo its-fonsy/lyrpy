@@ -22,7 +22,7 @@ or just for you
 
 
 ## Setup
-After the installation you have to set and environment variable with the path
+After the installation you have to set an environment variable with the path
 of all your lyrics files
 
 	$ export LYRICS_DIR="/full/path/to/lyrics/dir/" >> ~/.profile
