@@ -1,60 +1,52 @@
 ## Introduction
-lyrpy is a terminal application to display the lyric of a song played on the `mpd server`. It's based on
-`Python3` and `ncurses` and has the ability to highlight the verse that is being singed.
+lyrpy is a terminal application that displays the lyric of a song played by
+`mpd` or `cmus`. It's based on `python3` and `ncurses` and has the ability to
+highlight the verse that is being singed.
 
 ![lyrpy](doc/img/lyrpy.gif)
 
-## Requirements
-
-+ GNU Linux as Operative System
-+ `mpd` package installed
-+ `python3.8` (or greater) and `pip`
 
 ## Installation
-Clone the repo and run the installer.
+To install `lyrpy` you first need to clone this repo
 
 	$ git clone https://github.com/its-fonsy/lyrpy
 	$ cd lyrpy
 
-To install for everyone
+Then you can install it for everyone
 
 	$ sudo python3 setup.py install
 
-for just you
+or just for you
 
 	$ python3 setup.py install --user
+
+
+## Setup
+After the installation you have to set and environment variable with the path
+of all your lyrics files
+
+	$ export LYRICS_DIR="/full/path/to/lyrics/dir/" >> ~/.profile
+	$ source ~/.profile
+
+(if you don't want to set it up then you can run `lyrpy` with the flag `-d`)
+	
 
 ## Usage
 Simply run
 
 	$ lyrpy
 
-now the program will look for `.lrc` files that matches the song being played on `mpd` server.
+now the program will look for `.lrc` files that matches the song being played by the music player.
 
-To see how to set the lyrics directory and how to name `lrc` files correctly continue reading.
-
-## Lyrics Directory
-The program will search for `.lrc` files into the lyrics directory. The directory can be specified with the
-environment variable
-
-	export LYRICS_DIR="/full/path/to/lyrics/dir/"
-
-for example in the `~/.profile` or `~/.bashrc`.
-
-An alternative is to run the program with the flag `-d`
-
-	$ lyrpy -d /full/path/to/lyrics/dir/
-
-**IMPORTANT**: the path must be absolute and end with a `/`.
-Things like `~/music/lyric/` or `/media/music/lyric` will not work!
 
 ## Lyrics Files
-To match the song that is playing on the `mpd server` the files mukst be named:
+To match the song that is playing the files must be named like so
 
-`ARTIST - TITLE.lrc`
+	ARTIST - TITLE.lrc
 
-The selection of the lyric file is based on the metadata of the file playing in `mpd`. `lyrpy` show on the
-bottom left curner what metadata is seeing (see the image above).
+The selection of the lyric files is based on the metadata of the played song.
+`lyrpy` shows on the bottom-left the author and title of the track that is
+being played (see the image above).
 
 The `.lrc` files must be similar to this
 
