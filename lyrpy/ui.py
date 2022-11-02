@@ -35,9 +35,9 @@ class UI:
             return
 
         # Print lyirc that are at the end of the song
-        if ( svi > (len(l) - max_lines_to_print//2) ):
+        if ( svi > (len(l) - max_lines_to_print//2 - 1) ):
             self.print_verses_from_to(l,
-                                   len(l) - max_lines_to_print,
+                                   len(l) - max_lines_to_print - 1,
                                    max_lines_to_print,
                                    svi)
             return
