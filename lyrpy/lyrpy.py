@@ -21,34 +21,47 @@ def main():
         mpd_client.idletimeout = None
         mpd_client.connect("localhost", 6600)
         client = 'mpd'
-    except ConnectionError:
-        # Try to connect to CMUS
-        cmus = remote.PyCmus()
-        client = 'cmus'
-    except:
-        print("Nor MPD/CMUS server is running :(")
-        exit(-1)
+    except ConnectionRefusedError:
+        try:
+            # Try to connect to CMUS
+            cmus = remote.PyCmus()
+            client = 'cmus'
+        except FileNotFoundError:
+            print("Nor MPD/CMUS server is running :(")
+            exit(-1)
 
     # Folder with all lyrics files
     lyrics_files = [f for f in listdir(lyrics_folder) if isfile(join(lyrics_folder, f))]
-    song = Lyric('dummy', 'song')
+
+    artist = ''
+    title = ''
+    song_time = 0.0
+    song_dur = 0.0
+
+    song = Lyric(artist, title)
 
     # Start the UI
     ui = UI()
     while (1):
 
         # getting info of the current song
-        if client == "mpd":
-            artist = mpd_client.currentsong()['artist']
-            title = mpd_client.currentsong()['title']
-            song_time = float(mpd_client.status()['elapsed'])
-            song_dur = float(mpd_client.status()['duration'])
-        elif client == "cmus":
-            s = cmus.status()
-            artist = cmus_get_artist(s)
-            title = cmus_get_title(s)
-            song_time = float(cmus_get_time(s)) + 2.0
-            song_dur = float(cmus_get_dur(s))
+        try:
+            if client == "mpd":
+                artist = mpd_client.currentsong()['artist']
+                title = mpd_client.currentsong()['title']
+                song_time = float(mpd_client.status()['elapsed'])
+                song_dur = float(mpd_client.status()['duration'])
+            elif client == "cmus":
+                s = cmus.status()
+                artist = cmus_get_artist(s)
+                title = cmus_get_title(s)
+                song_time = float(cmus_get_time(s)) + 2.0
+                song_dur = float(cmus_get_dur(s))
+        except:
+            artist = ''
+            title = ''
+            song_time = 0.0
+            song_dur = 0.0
 
         cur_song = Lyric(artist, title)
 
