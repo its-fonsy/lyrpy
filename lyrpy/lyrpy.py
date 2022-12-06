@@ -81,8 +81,13 @@ def main():
 
         ui.print_song_info(song_time, song_dur, cur_song)
 
-        if ui.key_pressed() == ord('q'):
+        key_press = ui.key_pressed()
+
+        if key_press == ord('q'):
             break
+        elif key_press == ord('u'):
+            lyrics_files = [f for f in listdir(lyrics_folder) if isfile(join(lyrics_folder, f))]
+            ui.print_debug_message("Lyric list updated!")
 
     # kill the UI
     ui.kill()
