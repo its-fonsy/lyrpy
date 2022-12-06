@@ -117,6 +117,9 @@ class UI:
         # Get tereminal dimension
         num_rows, num_cols = self.stdscr.getmaxyx()
 
+        self.stdscr.move(num_rows - 1, 0)
+        self.stdscr.clrtoeol()
+
         # Getting minutes and second of the elapsed time of the song
         p_min, p_sec = self.get_min_sec(song_time)
         p_sec = '0' + str(p_sec) if p_sec < 10.00 else str(p_sec)
