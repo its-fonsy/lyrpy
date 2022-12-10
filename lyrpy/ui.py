@@ -20,32 +20,34 @@ class UI:
 
         num_rows, num_cols = self.stdscr.getmaxyx()
         l = lyric.lyric
+        lyric_len = len(l)
         _, svi = lyric.singed_verse(playing_time)
 
         max_lines_to_print = num_rows - 2*self.blank_lines - self.info_lines
+        middle_row = max_lines_to_print//2
 
         # Print lyirc that are shorter then the number of TERM rows
-        if ( len(l) < max_lines_to_print ):
+        if ( lyric_len < max_lines_to_print ):
             self.print_verses_from_to(l, 0, len(l)-1, svi)
             return
 
         # Print lyirc that are at the beginning of the song
-        if( svi < max_lines_to_print//2 ):
+        if( svi < middle_row ):
             self.print_verses_from_to(l, 0, max_lines_to_print, svi)
             return
 
         # Print lyirc that are at the end of the song
-        if ( svi > (len(l) - max_lines_to_print//2 - 1) ):
+        if ( svi > (lyric_len - middle_row - self.blank_lines) ):
             self.print_verses_from_to(l,
-                                   len(l) - max_lines_to_print - 1,
+                                   lyric_len - max_lines_to_print - 1,
                                    max_lines_to_print,
                                    svi)
             return
 
         # Print lyirc that are in the middle of the song
         self.print_verses_from_to(l,
-                               svi - max_lines_to_print//2,
-                               max_lines_to_print,
+                               svi - middle_row,
+                               middle_row*2 if (max_lines_to_print % 2) else middle_row*2+1,
                                svi)
 
 
@@ -77,7 +79,7 @@ class UI:
             self.stdscr.move(i, 0)
             self.stdscr.clrtoeol()
 
-        message = "Lyrics not Found"
+        message = "LYRIC NOT FOUND :("
         self.stdscr.addstr(num_rows // 2 - 1,
                            num_cols//2 - len(message)//2,
                            message,
