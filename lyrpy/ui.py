@@ -13,7 +13,7 @@ class UI:
         curses.curs_set(0)
 
         # Line that will be blank on top and bottom of the screen
-        self.blank_lines = 3
+        self.blank_lines = 2
         self.info_lines = 1
 
     def print_lyric(self, playing_time, lyric):
@@ -26,9 +26,17 @@ class UI:
         max_lines_to_print = num_rows - 2*self.blank_lines - self.info_lines
         middle_row = max_lines_to_print//2
 
+        # Helping debug indexes
+        # self.stdscr.addstr(num_rows-2,0,f"max_lines_to_print={max_lines_to_print}"
+        #                          f" row={num_rows}"
+        #                          f" col={num_cols}"
+        #                          f" svi={svi}"
+        #                          f" middle_row={middle_row}"
+        #                          )
+
         # Print lyirc that are shorter then the number of TERM rows
         if ( lyric_len < max_lines_to_print ):
-            self.print_verses_from_to(l, 0, len(l)-1, svi)
+            self.print_verses_from_to(l, 0, lyric_len - 1, svi)
             return
 
         # Print lyirc that are at the beginning of the song
@@ -47,7 +55,7 @@ class UI:
         # Print lyirc that are in the middle of the song
         self.print_verses_from_to(l,
                                svi - middle_row,
-                               middle_row*2 if (max_lines_to_print % 2) else middle_row*2+1,
+                               max_lines_to_print,
                                svi)
 
 
@@ -55,12 +63,15 @@ class UI:
 
         num_rows, num_cols = self.stdscr.getmaxyx()
 
+        # Helping debug indexes
+        # self.stdscr.addstr(num_rows-3,0,f"fpr={self.blank_lines}")
+
         for i in range(end_idx):
-            self.stdscr.move(self.blank_lines + i, 0)
+            y = self.blank_lines + i
+
+            self.stdscr.move(y, 0)
             self.stdscr.clrtoeol()
             verse = l[i + start_idx].get_verse()
-
-            y = self.blank_lines + i
 
             if len(verse) > (num_cols - 4):
                 self.stdscr.addstr(y, 2, verse[:num_cols - 4],
