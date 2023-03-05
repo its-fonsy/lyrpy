@@ -130,6 +130,9 @@ class UI:
         # Get tereminal dimension
         num_rows, num_cols = self.stdscr.getmaxyx()
 
+        # clear the info lines
+        self.stdscr.move(num_rows - 2, 0)
+        self.stdscr.clrtoeol()
         self.stdscr.move(num_rows - 1, 0)
         self.stdscr.clrtoeol()
 
@@ -147,11 +150,23 @@ class UI:
         message += '0' + str(max_min) + ':' + max_sec + ']'
         self.stdscr.addstr(num_rows - 1, num_cols - 14, message, curses.A_BOLD)
 
-        # Print the artist and the title of the song
         artist, title = lyric.get_info()
-        message = artist + ' - ' + title
-        self.stdscr.addstr(num_rows - 1, 2, 'Playing: ', curses.A_BOLD)
-        self.stdscr.addstr(num_rows - 1, 11, message )
+
+        # Print the artist
+        self.stdscr.addstr(num_rows - 2, 2, 'Artist: ', curses.A_BOLD)
+
+        if( len(artist) > num_cols - 10 ):
+            self.stdscr.addstr(num_rows - 2, 10, artist[0: num_cols - 10 - 4] + '... ' )
+        else:
+            self.stdscr.addstr(num_rows - 2, 10, artist)
+
+        # Print the track
+        self.stdscr.addstr(num_rows - 1, 2, ' Title: ', curses.A_BOLD)
+
+        if( len(title) > num_cols - 24 ):
+            self.stdscr.addstr(num_rows - 1, 10, title[0: num_cols - 24 - 4] + '... ' )
+        else:
+            self.stdscr.addstr(num_rows - 1, 10, title)
 
         self.stdscr.refresh()
 
